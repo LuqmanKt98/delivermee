@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Deliver Mee</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>deliver_mee</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+
+	<!-- ═══════════════════════════════════════════════
+	     REQUIRED PERMISSION DESCRIPTIONS
+	     Missing any of these causes an immediate crash
+	     when the permission is requested on iOS.
+	     ═══════════════════════════════════════════════ -->
+
+	<!-- Camera: used to take photos of delivery items -->
+	<key>NSCameraUsageDescription</key>
+	<string>DeliverMee needs camera access to take photos of your delivery items for tracking and proof of delivery.</string>
+
+	<!-- Photo Library read: used by image_picker to select existing photos -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>DeliverMee needs access to your photo library to select photos of delivery items.</string>
+
+	<!-- Photo Library write: saving delivery confirmation photos -->
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>DeliverMee may save delivery photos to your photo library.</string>
+
+	<!-- Location: required for pickup/dropoff and delivery tracking -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>DeliverMee uses your location to set your pickup point, find nearby drivers, and track your delivery in real time.</string>
+
+	<!-- Location always: needed for background delivery tracking -->
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>DeliverMee uses your location in the background to provide accurate real-time delivery tracking updates.</string>
+
+	<!-- Microphone: some camera APIs require this description even if not explicitly used -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>DeliverMee may use the microphone if you record a video of your delivery item.</string>
+
+	<!-- ═══════════════════════════════════════════════ -->
+
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
+</plist>

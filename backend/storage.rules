@@ -1,0 +1,77 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules for DeliverMee
+// Bucket: delivermee-12c26.firebasestorage.app
+//
+// KEY NOTES:
+// - Signed URL uploads (used by the backend) BYPASS these rules entirely.
+//   These rules only affect direct Firebase SDK uploads from the Flutter app.
+// - The backend service account has full GCS admin access regardless of rules.
+// - item_photos allow public read so images display without requiring Firebase Auth.
+// - Driver documents require authentication to read (sensitive documents).
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── Helper Functions ────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Max 15MB to accommodate larger images
+    function isValidSize() {
+      return request.resource.size < 15 * 1024 * 1024;
+    }
+
+    // Accept images and PDFs (driver docs can be PDF)
+    function isImageOrPdf() {
+      return request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'application/pdf';
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    // ─── Driver Documents ────────────────────────────────────────────────────
+    // Path: drivers/{driverId}/{docType}/{fileName}
+    // docType: driver_license, id_card, insurance
+    match /drivers/{driverId}/{docType}/{fileName} {
+      // Authenticated users can read driver documents
+      allow read: if isAuthenticated();
+
+      // Allow upload of images or PDFs under 15MB for valid doc types
+      allow write: if isAuthenticated()
+                   && isImageOrPdf()
+                   && isValidSize()
+                   && (docType == 'driver_license'
+                       || docType == 'id_card'
+                       || docType == 'insurance');
+
+      // Only owner can delete their documents
+      allow delete: if isAuthenticated() && request.auth.uid == driverId;
+    }
+
+    // ─── Delivery Item Photos ─────────────────────────────────────────────────
+    // Path: deliveries/{deliveryId}/item_photos/{fileName}
+    // Public read: delivery photos are displayed to customers, drivers, and admins
+    // who may not all have Firebase Auth tokens at display time.
+    match /deliveries/{deliveryId}/item_photos/{fileName} {
+      // PUBLIC read — anyone with the URL can view the photo
+      allow read: if true;
+
+      // Only authenticated users can write/delete photos
+      allow write: if isAuthenticated()
+                   && isImage()
+                   && isValidSize();
+
+      allow delete: if isAuthenticated();
+    }
+
+    // ─── Catch-all: deny everything else ─────────────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

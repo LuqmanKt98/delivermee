@@ -1,0 +1,195 @@
+# =============================================================================
+# DeliverMee — root .gitignore (monorepo: backend/ + mobile/)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Secrets, credentials, environment files (NEVER commit)
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# Service accounts, admin SDKs, OAuth refresh tokens
+**/service_account_key.json
+**/google_credentials.json
+**/firebase-adminsdk*.json
+**/*-firebase-adminsdk-*.json
+**/john_login.json
+
+# Stray Firebase configs at repo root (they belong inside the apps)
+/google-services*.json
+/GoogleService-Info.plist
+/delivermee-*-firebase-*.json
+
+# Generic credential patterns
+**/*credentials*.json
+**/*secret*.json
+**/*-key.json
+**/*_key.json
+**/*.pem
+**/*.key
+**/*.p12
+**/*.keystore
+**/*.jks
+
+# Android local SDK paths (and any embedded API keys it carries)
+**/android/local.properties
+
+# Deploy/test scripts that historically contain hard-coded secrets
+/2_deploy_backend.bat
+/deploy_complete.bat
+/backend/deploy_webhook_secret.bat
+
+# Backend doc files that contain leaked Stripe keys
+/backend/STRIPE_QUICK_SETUP.md
+/backend/STRIPE_WEBHOOKS_GUIDE.md
+/backend/VERCEL_ENV_SETUP.md
+
+# -----------------------------------------------------------------------------
+# Python (backend/)
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtualenvs
+venv/
+env/
+.venv/
+ENV/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache/
+
+# Cache directory used by backend
+/backend/cache/
+
+# -----------------------------------------------------------------------------
+# Flutter / Dart (mobile/)
+# -----------------------------------------------------------------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Pods/
+**/ios/.symlinks/
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/windows/flutter/generated_plugin_registrant.*
+**/windows/flutter/generated_plugins.cmake
+**/windows/flutter/ephemeral/
+**/linux/flutter/generated_plugin_registrant.*
+**/linux/flutter/generated_plugins.cmake
+**/linux/flutter/ephemeral/
+
+# Symbolication / obfuscation
+app.*.symbols
+app.*.map.json
+
+# -----------------------------------------------------------------------------
+# Android (Gradle)
+# -----------------------------------------------------------------------------
+**/android/.gradle/
+**/android/.kotlin/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/gradle-wrapper.jar
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+**/android/**/*.keystore
+**/android/**/*.jks
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+**/android/app/.cxx/
+
+# -----------------------------------------------------------------------------
+# iOS / macOS (CocoaPods, Xcode user state)
+# -----------------------------------------------------------------------------
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/build/
+**/macos/build/
+**/Pods/
+**/*.xcuserstate
+**/xcuserdata/
+**/DerivedData/
+
+# -----------------------------------------------------------------------------
+# Editor / IDE / OS
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.history/
+.cursor/
+.claude/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -----------------------------------------------------------------------------
+# Logs, debug artifacts, temp
+# -----------------------------------------------------------------------------
+*.log
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pip-log.txt
+pip-delete-this-directory.txt
+*.tmp
+*.temp
+
+# -----------------------------------------------------------------------------
+# Build / deploy artifacts
+# -----------------------------------------------------------------------------
+.vercel/
+.next/
+.firebase/
+node_modules/
+.npm/
+.yarn/
+dist/
+
+# -----------------------------------------------------------------------------
+# Repo-specific cruft (kept on disk per owner request, not pushed)
+# -----------------------------------------------------------------------------
+# Misc Firebase config dropped at repo root
+/google-services*.json
+/firebase-debug.log
